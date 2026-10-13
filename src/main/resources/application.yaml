@@ -2,7 +2,7 @@ spring:
   application:
     name: filmes-api
   datasource:
-    url: jdbc:postgresql://localhost:2324/filmelb
+    url: jdbc:postgresql://localhost:2324/filmes-catalogo
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
