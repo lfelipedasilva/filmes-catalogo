@@ -16,4 +16,6 @@ public class DiretorService {
         diretorValidator.validarDiretor(diretor);
         diretorRepository.save(diretor);
     }
+
+
 }
