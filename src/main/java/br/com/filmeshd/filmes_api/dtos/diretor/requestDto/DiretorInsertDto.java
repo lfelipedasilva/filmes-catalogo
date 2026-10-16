@@ -1,17 +1,17 @@
 package br.com.filmeshd.filmes_api.dtos.diretor.requestDto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
 public class DiretorInsertDto {
-    @NotBlank
+    @NotBlank(message = "nome invalido!")
     @Size(min = 1, max = 100)
     private String nome;
-    @NotBlank
+    @NotNull(message = "data de nascimento invalida!")
+    @Past
     private LocalDate dataNascimento;
 
     public DiretorInsertDto(String nome, LocalDate dataNascimento) {

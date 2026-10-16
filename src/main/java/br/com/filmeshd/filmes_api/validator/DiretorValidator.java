@@ -27,7 +27,7 @@ public class DiretorValidator {
     }
 
     private Boolean existeDiretor(Diretor diretor) {
-        Optional<Diretor> diretorAchado = diretorRepository.findByNomeAndDataNascimento(diretor.getNome(), diretor.getDataNascimento());
+        Optional<Diretor> diretorAchado = diretorRepository.findByNome(diretor.getNome());
 
         if (diretor.getId() == null) {
             return diretorAchado.isPresent();

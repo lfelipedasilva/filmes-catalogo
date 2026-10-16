@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface DiretorRepository extends JpaRepository<Diretor, UUID> {
-     Optional<Diretor> findByNomeAndDataNascimento(String nome, LocalDate dataNascimento);
+     Optional<Diretor> findByNome(String nome);
 
 }
