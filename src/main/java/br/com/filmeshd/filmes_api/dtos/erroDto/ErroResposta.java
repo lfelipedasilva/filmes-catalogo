@@ -18,4 +18,8 @@ public record ErroResposta(Integer status, String mensagem, List<ErroCampo> erro
         return new ErroResposta(HttpStatus.UNPROCESSABLE_CONTENT.value(), mensagem, erros);
     }
 
+    public static ErroResposta naoEncontrado(String mensagem) {
+        return new ErroResposta(HttpStatus.NOT_FOUND.value(), mensagem, List.of());
+    }
+
 }
