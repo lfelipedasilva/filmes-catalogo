@@ -1,6 +1,7 @@
 package br.com.filmeshd.filmes_api.controller;
 
 import br.com.filmeshd.filmes_api.dtos.diretor.requestDto.DiretorInsertDto;
+import br.com.filmeshd.filmes_api.dtos.diretor.requestDto.DiretorUpdateDto;
 import br.com.filmeshd.filmes_api.dtos.diretor.responseDto.DiretorResponseDto;
 import br.com.filmeshd.filmes_api.mappers.DiretorMapper;
 import br.com.filmeshd.filmes_api.model.Diretor;
@@ -35,15 +36,16 @@ public class DiretorController {
         return ResponseEntity.ok(diretorMapper.toDto(diretor));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarDiretor(@PathVariable UUID id){
+        diretorService.deletarDiretor(id);
+        return ResponseEntity.noContent().build();
+    }
 
-    /*
-    amanha: implementar
-    obterDetalhes, para pesquisar um diretor especifico pelo ID
-    pesquisar para pesquisar uma lista de diretores com dados especificos como por exemplo nomes semelhantes Exemplo: Sam, Sam Winters, Jim Sam etc...
-    atualizar Diretor
-    deletar diretor
+    @PutMapping
+    public ResponseEntity<DiretorResponseDto> atualizarDiretor(@RequestBody @Valid DiretorUpdateDto diretorUpdateDto) {
+        Diretor diretor = diretorService.atualizarDiretor(diretorMapper.toUpdateEntity(diretorUpdateDto));
+        return ResponseEntity.ok(diretorMapper.toDto(diretor));
+    }
 
-    para isso sera necessario criar metodos no service, criar os endpoint no controller, provavelmente criar mais Dtos e tambem mexer no controllerAdvice, para amanham sera isso
-    como ja to começando a me lembrar denovo do codigo, acredito que eu consiga fazer tudo isso amanham sim
-     */
 }

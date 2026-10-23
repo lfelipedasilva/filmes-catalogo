@@ -41,6 +41,11 @@ public class DiretorValidator {
     }
 
     private Boolean dataNascimentoValido(Diretor diretor) {
+
+        if (diretor.getDataNascimento() == null) {
+            return false;
+        }
+
         if (diretor.getDataNascimento().getYear() >= 2008) {
             return true;
         }

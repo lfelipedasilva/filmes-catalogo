@@ -1,5 +1,6 @@
 package br.com.filmeshd.filmes_api.dtos.diretor.responseDto;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 public class DiretorResponseDto {
     @org.hibernate.validator.constraints.UUID
     @NotNull
+    @Id
     private UUID id;
     @NotBlank
     private String nome;
