@@ -8,6 +8,7 @@ import br.com.filmeshd.filmes_api.model.Diretor;
 import br.com.filmeshd.filmes_api.repository.DiretorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Optional;
 
@@ -23,6 +24,10 @@ public class DiretorValidator {
 
         if (dataNascimentoValido(diretor)) {
             throw new DataNascimentoInvalidaException("para o diretor ser inserido, é necessario que sua data de nascimento seja inferior a 2008!");
+        }
+
+        if (verificarNomeEmBranco(diretor)) {
+            throw new IllegalArgumentException("O nome do diretor não pode ser em branco!");
         }
     }
 
@@ -47,6 +52,17 @@ public class DiretorValidator {
         }
 
         if (diretor.getDataNascimento().getYear() >= 2008) {
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean verificarNomeEmBranco(Diretor diretor) {
+        if (diretor.getNome() == null) {
+            return false;
+        }
+
+        if (diretor.getNome().isBlank()) {
             return true;
         }
         return false;

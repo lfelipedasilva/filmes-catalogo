@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,6 +48,14 @@ public class DiretorController {
     public ResponseEntity<DiretorResponseDto> atualizarDiretor(@RequestBody @Valid DiretorUpdateDto diretorUpdateDto) {
         Diretor diretor = diretorService.atualizarDiretor(diretorMapper.toUpdateEntity(diretorUpdateDto));
         return ResponseEntity.ok(diretorMapper.toDto(diretor));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DiretorResponseDto>> pesquisarDiretor(@RequestParam(required = false) String nome, @RequestParam(required = false) LocalDate dataNascimento) {
+        List<DiretorResponseDto> listaDeDiretores = diretorService.obterDiretores(nome, dataNascimento).stream()
+                .map(diretor -> new DiretorResponseDto(diretor.getId(), diretor.getNome(), diretor.getDataNascimento())).toList();
+
+        return ResponseEntity.ok(listaDeDiretores);
     }
 
 }

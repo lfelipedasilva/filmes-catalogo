@@ -51,5 +51,11 @@ public class DiretorHandler {
         return ErroResposta.conteudoNaoProcessavel("Algum dado nao foi processado corretamente!", List.of());
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
+    public ErroResposta IllegalArgumentExceptionHandle(IllegalArgumentException exception) {
+        return ErroResposta.conteudoNaoProcessavel(exception.getMessage(), List.of());
+    }
+
 
 }
