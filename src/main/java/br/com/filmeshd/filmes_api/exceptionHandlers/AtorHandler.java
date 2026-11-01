@@ -6,6 +6,7 @@ import br.com.filmeshd.filmes_api.dtos.erroDto.ErroResposta;
 import br.com.filmeshd.filmes_api.exceptions.atorExceptions.AtorDuplicadoException;
 import br.com.filmeshd.filmes_api.exceptions.atorExceptions.AtorNaoEncontradoException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice(assignableTypes =  AtorController.class)
 public class AtorHandler {
@@ -44,4 +46,18 @@ public class AtorHandler {
     public ErroResposta MethodArgumentTypeMismatchExceptionHandle(MethodArgumentTypeMismatchException exception) {
         return ErroResposta.respostaPadrao("Houve um problema no preenchimento da requisição!");
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
+    public ErroResposta HttpMessageNotReadableExceptionHandle(HttpMessageNotReadableException exception) {
+        return ErroResposta.conteudoNaoProcessavel("houve um problema no preenchimento da requisição!", List.of());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
+    public ErroResposta NoSuchElementExceptionHandle(NoSuchElementException exception) {
+        return ErroResposta.respostaPadrao("houve um problema no preenchimento da requisição!");
+    }
+
+
 }

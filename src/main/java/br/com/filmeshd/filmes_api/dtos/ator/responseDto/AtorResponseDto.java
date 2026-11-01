@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 public class AtorResponseDto {
     @Id
-    @NotBlank
+    @NotNull
     private UUID id;
     @NotBlank
     private String nome;

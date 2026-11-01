@@ -22,10 +22,10 @@ public class AtorValidator {
     private boolean existeAtor(Ator ator) {
         Optional<Ator> atorAchado = repository.findByNome(ator.getNome());
 
-        if (ator == null) {
+        if (ator.getId() == null) {
             return atorAchado.isPresent();
         }
 
-        return atorAchado.isPresent() && !atorAchado.get().equals(ator);
+        return atorAchado.isPresent() && !ator.getId().equals(atorAchado.get().getId());
     }
 }
