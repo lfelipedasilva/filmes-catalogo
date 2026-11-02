@@ -1,6 +1,7 @@
 package br.com.filmeshd.filmes_api.mappers;
 
 import br.com.filmeshd.filmes_api.dtos.filme.requestDto.FilmeInsertDto;
+import br.com.filmeshd.filmes_api.dtos.filme.responseDto.FilmeResponseDto;
 import br.com.filmeshd.filmes_api.model.Ator;
 import br.com.filmeshd.filmes_api.model.Filme;
 import br.com.filmeshd.filmes_api.repository.AtorRepository;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Mapper(componentModel = "spring", uses = AtorMapper.class)
+@Mapper(componentModel = "spring", uses = {AtorMapper.class, DiretorMapper.class})
 public abstract class FilmeMapper {
     @Autowired
     AtorRepository atorRepository;
@@ -32,4 +33,7 @@ public abstract class FilmeMapper {
     @Mapping(target = "listaDeAtores", expression = "java(transformarIdParaAtor(filmeInsertDto.getIdAtores()))")
     @Mapping(target = "diretor", expression = "java(diretorRepository.findById(filmeInsertDto.getDiretorId()).get())")
     public abstract Filme toEntity(FilmeInsertDto filmeInsertDto);
+
+    @Mapping(source = "listaDeAtores", target = "elenco")
+    public abstract FilmeResponseDto toFilmeResponseDto(Filme filme);
 }
