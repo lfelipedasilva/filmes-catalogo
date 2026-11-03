@@ -1,6 +1,7 @@
 package br.com.filmeshd.filmes_api.controller;
 
 import br.com.filmeshd.filmes_api.dtos.filme.requestDto.FilmeInsertDto;
+import br.com.filmeshd.filmes_api.dtos.filme.requestDto.FilmeUpdateDto;
 import br.com.filmeshd.filmes_api.dtos.filme.responseDto.FilmeResponseDto;
 import br.com.filmeshd.filmes_api.mappers.FilmeMapper;
 import br.com.filmeshd.filmes_api.model.Filme;
@@ -38,6 +39,12 @@ public class FilmeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarFilme(@PathVariable UUID id) {
         filmeService.deletarFilme(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> atualizarFilme(@RequestBody @Valid FilmeUpdateDto filmeUpdateDto) {
+        filmeService.atualizarFilme(filmeUpdateDto);
         return ResponseEntity.noContent().build();
     }
 }
