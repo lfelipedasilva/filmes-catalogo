@@ -1,13 +1,13 @@
 package br.com.filmeshd.filmes_api.mappers;
 
 import br.com.filmeshd.filmes_api.dtos.filme.requestDto.FilmeInsertDto;
+import br.com.filmeshd.filmes_api.dtos.filme.requestDto.FilmeUpdateDto;
 import br.com.filmeshd.filmes_api.dtos.filme.responseDto.FilmeResponseDto;
 import br.com.filmeshd.filmes_api.model.Ator;
 import br.com.filmeshd.filmes_api.model.Filme;
 import br.com.filmeshd.filmes_api.repository.AtorRepository;
 import br.com.filmeshd.filmes_api.repository.DiretorRepository;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -34,6 +34,16 @@ public abstract class FilmeMapper {
     @Mapping(target = "diretor", expression = "java(diretorRepository.findById(filmeInsertDto.getDiretorId()).get())")
     public abstract Filme toEntity(FilmeInsertDto filmeInsertDto);
 
+    @Mapping(target = "listaDeAtores", expression = "java(transformarIdParaAtor(filmeUpdateDto.getIdAtores()))")
+    @Mapping(target = "diretor", expression = "java(diretorRepository.findById(filmeUpdateDto.getDiretorId()).get())")
+    public abstract Filme toUpdateEntity(FilmeUpdateDto filmeUpdateDto);
+
     @Mapping(source = "listaDeAtores", target = "elenco")
     public abstract FilmeResponseDto toFilmeResponseDto(Filme filme);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "listaDeAtores", expression = "java(transformarIdParaAtor(filmeUpdateDto.getIdAtores()))")
+    @Mapping(target = "diretor", expression = "java(diretorRepository.findById(filmeUpdateDto.getDiretorId()).get())")
+    public abstract void atualizarFilmeIgnorandoNullValues(FilmeUpdateDto filmeUpdateDto, @MappingTarget Filme filme);
+
 }
